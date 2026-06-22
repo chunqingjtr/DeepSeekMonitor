@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <title>设置</title>
+  <style>
+    .body { padding: 6px 16px 18px; }
+    .sub-title { font-size: 12px; color: var(--muted); margin-left: 8px; }
+    .group { background: var(--card); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; }
+    .group h3 { font-size: 13px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 7px; }
+    .group h3 .ic { color: var(--brand-light); display: grid; place-items: center; }
+    .group h3 .ic svg { width: 14px; height: 14px; }
+    .group p.desc { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+    .key-row { display: flex; gap: 8px; }
+    .key-row input {
+      flex: 1; background: rgba(0,0,0,0.25); border: 1px solid var(--line); color: #fff;
+      border-radius: 9px; padding: 9px 11px; font-size: 12px; outline: none; font-family: var(--font);
+    }
+    .key-row input:focus { border-color: var(--brand); }
+    .btn {
+      -webkit-app-region: no-drag; background: var(--brand); color: #fff; border: none;
+      border-radius: 9px; padding: 9px 14px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
+    }
+    .btn:hover { background: var(--brand-light); }
+    .btn.ghost { background: rgba(255,255,255,0.08); }
+    .btn.ghost:hover { background: rgba(255,255,255,0.14); }
+    .key-status { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; font-size: 11px; }
+    .key-status .ok { color: var(--green); }
+    .key-status .bad { color: #ff6961; }
+    .key-status a { color: var(--muted); cursor: pointer; text-decoration: underline; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; }
+    .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; cursor: pointer; }
+    .switch input { display: none; }
+    .switch .track { position: absolute; inset: 0; background: rgba(255,255,255,0.15); border-radius: 999px; transition: .2s; }
+    .switch .knob { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: .2s; }
+    .switch input:checked + .track { background: var(--brand); }
+    .switch input:checked + .track + .knob { transform: translateX(18px); }
+    .intervals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .intervals button {
+      -webkit-app-region: no-drag; background: rgba(255,255,255,0.06); color: var(--muted);
+      border: 1px solid transparent; border-radius: 9px; padding: 9px 0; font-size: 12px; cursor: pointer; transition: .15s;
+    }
+    .intervals button:hover { background: rgba(255,255,255,0.12); }
+    .intervals button.active { background: var(--brand); color: #fff; font-weight: 600; }
+    .toast { font-size: 11px; color: var(--green); margin-top: 8px; min-height: 14px; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <div class="titlebar">
+      <div class="logo"><img src="../assets/whale.png" alt="" /></div>
+      <div class="title">DeepSeek Monitor</div>
+      <span class="sub-title">设置</span>
+      <div class="spacer"></div>
+      <div class="actions">
+        <button class="iconbtn" id="btn-close" title="关闭">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="body">
+      <!-- API Key -->
+      <div class="group">
+        <h3><span class="ic">🔑</span>API Key</h3>
+        <p class="desc">用于调用 DeepSeek API 获取余额和用量数据。仅保存在本机本地（用户数据目录），不会上传。</p>
+        <div class="key-row">
+          <input type="password" id="apikey" placeholder="sk-..." autocomplete="off" />
+          <button class="btn ghost" id="btn-eye" title="显示/隐藏">👁</button>
+          <button class="btn" id="btn-save">验证并保存</button>
+        </div>
+        <div class="key-status">
+          <span id="key-state"></span>
+          <a id="btn-clear">清除 Key</a>
+        </div>
+        <div class="toast" id="toast"></div>
+      </div>
+
+      <!-- 桌面小组件 -->
+      <div class="group">
+        <h3><span class="ic">🧩</span>桌面小组件</h3>
+        <p class="desc">在桌面常驻一个紧凑的余额/消耗悬浮窗（Windows 版以置顶小窗实现）。</p>
+        <div class="toggle-row">
+          <span style="font-size:13px;">启用桌面小组件</span>
+          <label class="switch"><input type="checkbox" id="sw-widget"/><span class="track"></span><span class="knob"></span></label>
+        </div>
+      </div>
+
+      <!-- 开机自启 -->
+      <div class="group">
+        <h3><span class="ic">⚡</span>开机自启</h3>
+        <p class="desc">开机后自动在后台启动 DeepSeek Monitor 并常驻系统托盘。</p>
+        <div class="toggle-row">
+          <span style="font-size:13px;">登录时自动启动</span>
+          <label class="switch"><input type="checkbox" id="sw-autolaunch"/><span class="track"></span><span class="knob"></span></label>
+        </div>
+      </div>
+
+      <!-- 自动刷新 -->
+      <div class="group">
+        <h3><span class="ic">🔄</span>自动刷新</h3>
+        <p class="desc">设置后台自动拉取最新数据的时间间隔。</p>
+        <div class="intervals" id="intervals">
+          <button data-sec="30">30 秒</button>
+          <button data-sec="60">60 秒</button>
+          <button data-sec="120">2 分钟</button>
+          <button data-sec="300">5 分钟</button>
+        </div>
+      </div>
+
+      <!-- 用量数据导入 -->
+      <div class="group">
+        <h3><span class="ic">📥</span>用量数据导入</h3>
+        <p class="desc">当 DeepSeek 未开放用量查询接口时，可导入官方导出的 CSV / JSON 用量文件作为回退数据源。</p>
+        <button class="btn" id="btn-import">选择文件导入…</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

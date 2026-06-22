@@ -1,0 +1,15 @@
+{
+  "name": "deepseek-monitor",
+  "version": "1.0.0",
+  "description": "DeepSeek 余额与用量监控 (Windows 托盘版) — DeepSeekMonitor 的 Windows 复刻",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}
