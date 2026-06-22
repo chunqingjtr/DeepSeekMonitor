@@ -29,6 +29,16 @@ npm start
 
 首次使用：点击主面板右上角齿轮 → 填入 DeepSeek API Key → 「验证并保存」。
 
+### 关于 API Key
+
+- API Key 在 [platform.deepseek.com](https://platform.deepseek.com/) 的 **API keys** 页面获取。
+- **余额和用量是按「账户」统计的，不是按 Key 统计的。** 同一个账户下不管有几个 Key、填哪一个，
+  看到的都是同一份总余额和总用量。
+- DeepSeek 的 Key **只在创建那一刻显示完整内容**，之后永久打码、无法再复制。
+  所以如果你手上没有保存过完整的 Key，**直接点「创建 API key」新建一个**，
+  复制完整的 `sk-...` 填进来即可看到余额 —— 新建 Key 不花钱、也不影响已有的 Key。
+- 查的是 **API 平台**的充值余额与 API 调用量，与网页版 / App 的会员订阅是两套独立的账。
+
 ## 打包为 exe（可选）
 ```powershell
 npm i -D electron-builder
