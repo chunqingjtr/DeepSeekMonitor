@@ -5,6 +5,8 @@
 界面、配色、布局与原版保持一致。
 
 > 📖 面向使用者的图文步骤，请看 **[安装与使用说明书](使用说明.md)**。
+>
+> ⬇️ **直接下载安装包**（无需安装 Node）：[**最新版 Release**](https://github.com/chunqingjtr/DeepSeekMonitor/releases/latest) → 下载 `DeepSeek.Monitor.Setup.x.x.x.exe` → 双击安装，桌面自动生成快捷方式。
 
 ## 功能
 - 托盘弹出主面板：账户余额、在线状态、今日/本月消耗、V4 Flash / V4 Pro 用量、7 天消耗趋势

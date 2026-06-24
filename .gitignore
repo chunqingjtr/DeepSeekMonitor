@@ -7,6 +7,9 @@ out/
 *.exe
 *.zip
 
+# electron-builder cache (may land here from a relative ELECTRON_BUILDER_CACHE)
+eb-cache/
+
 # Logs
 *.log
 npm-debug.log*

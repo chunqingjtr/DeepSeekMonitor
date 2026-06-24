@@ -5,11 +5,44 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "electron-builder --win"
   },
-  "author": "",
+  "author": "chunqingjtr",
   "license": "MIT",
+  "build": {
+    "appId": "com.deepseek.monitor",
+    "productName": "DeepSeek Monitor",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "deepseek.js",
+      "store.js",
+      "renderer/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/whale.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DeepSeek Monitor",
+      "installerIcon": "assets/whale.ico",
+      "uninstallerIcon": "assets/whale.ico"
+    }
+  },
   "devDependencies": {
-    "electron": "^33.0.0"
+    "electron": "^33.0.0",
+    "electron-builder": "^26.15.3"
   }
 }
